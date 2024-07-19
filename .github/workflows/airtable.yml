@@ -18,6 +18,6 @@ on:
 jobs:
   update_merge_request_table:
     name: Airtable-Integrations
-    uses: aevula/airtable-integrations/.github/workflows/base.yml@master
+    uses: aevula/airtable-integrations/.github/workflows/base.yml@Dedski-14
     with:
       component: Airtable-Integrations

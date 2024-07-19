@@ -1,3 +1,25 @@
 # frozen_string_literal: true
 
-require 'faraday'
+# require 'faraday'
+
+require 'pp'
+
+pp(ENV)
+
+puts '-' * 100
+
+keys = %w[
+  MERGE_REQUEST_NUMBER
+  MERGE_REQUEST_URL
+  MERGE_REQUEST_TITLE
+  MERGE_REQUEST_STATE
+  MERGE_REQUEST_LOCKED
+  MERGE_REQUEST_CREATOR
+  MERGE_REQUEST_ASSIGNEE
+  MERGE_REQUEST_REVIEWERS
+  MERGE_REQUEST_REPO
+  MERGE_REQUEST_DRAFT
+  MERGE_REQUEST_MERGED
+  MERGE_REQUEST_MERGEABLE
+]
+pp(ENV.values_at(*keys))

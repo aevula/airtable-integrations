@@ -5,10 +5,24 @@ on:
         required: true
         type: string
 
+env:
+  MERGE_REQUEST_NUMBER: ${{ github.event.number }}
+  MERGE_REQUEST_URL: ${{ github.event.pull_request.html_url }}
+  MERGE_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+  MERGE_REQUEST_STATE: ${{ github.event.pull_request.state }}
+  MERGE_REQUEST_LOCKED: ${{ github.event.pull_request.locked }}
+  MERGE_REQUEST_CREATOR: ${{ github.event.pull_request.user.login }}
+  MERGE_REQUEST_ASSIGNEE: ${{ github.event.pull_request.assignee.login }}
+  # MERGE_REQUEST_REVIEWERS: ${{ github.event.pull_request.requested_reviewers }}
+  MERGE_REQUEST_REPO: ${{ github.event.pull_request.repo.name }}
+  MERGE_REQUEST_DRAFT: ${{ github.event.pull_request.draft }}
+  MERGE_REQUEST_MERGED: ${{ github.event.pull_request.merged }}
+  MERGE_REQUEST_MERGEABLE: ${{ github.event.pull_request.mergeable }}
+
 jobs:
   update_merge_requests_table:
     timeout-minutes: 1
-    name: Airtable-Integrations
+    name: Create/Update MR in Airtable
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,8 +34,8 @@ jobs:
           ruby-version: 3.3.4
           bundler-cache: true
 
-      - name: Debug
-        run: echo ${{ github.event }}
+      - name: Debug gems
+        run: bundle list
 
       - name: Send Request
         run: ruby script.rb
