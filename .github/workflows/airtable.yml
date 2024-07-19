@@ -1,0 +1,41 @@
+on:
+  workflow_call:
+    inputs:
+      component:
+        required: true
+        type: string
+  
+jobs:
+  send_webhook:
+    timeout-minutes: 1
+    name: Airtable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.4
+          bundler-cache: true
+
+      - name: Debug
+        run: echo ${{ github.event }}
+
+      - name: Send Request
+        run: ruby script.rb
+
+# {
+#   "task": "Dedski-13",
+#   "merge_request": {
+#     "name": "Dedski-13 Base for airtable integration",
+#     "number": "5",
+#     "component": "users-api",
+#     "status": "Created",
+#     "creator": "aevula",
+#     "assignee": "aevula",
+#     "reviewer": "aevula",
+#     "url": "https://github.com/aevula/users-api/pull/4"
+#   }
+# }
