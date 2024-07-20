@@ -6,18 +6,8 @@ on:
         type: string
 
 env:
-  MERGE_REQUEST_NUMBER: ${{ github.event.number }}
-  MERGE_REQUEST_URL: ${{ github.event.pull_request.html_url }}
-  MERGE_REQUEST_TITLE: ${{ github.event.pull_request.title }}
-  MERGE_REQUEST_STATE: ${{ github.event.pull_request.state }}
-  MERGE_REQUEST_LOCKED: ${{ github.event.pull_request.locked }}
-  MERGE_REQUEST_CREATOR: ${{ github.event.pull_request.user.login }}
-  MERGE_REQUEST_ASSIGNEE: ${{ github.event.pull_request.assignee.login }}
-  # MERGE_REQUEST_REVIEWERS: ${{ github.event.pull_request.requested_reviewers }}
-  MERGE_REQUEST_REPO: ${{ github.event.pull_request.repo.name }}
-  MERGE_REQUEST_DRAFT: ${{ github.event.pull_request.draft }}
-  MERGE_REQUEST_MERGED: ${{ github.event.pull_request.merged }}
-  MERGE_REQUEST_MERGEABLE: ${{ github.event.pull_request.mergeable }}
+  MERGE_REQUEST_URL: ${{ github.event.pull_request.url }}
+  AIRTABLE_CREATE_UPDATE_MR_WEBHOOK: ${{ github.secrets.AIRTABLE_CREATE_UPDATE_MR_WEBHOOK }}
 
 jobs:
   update_merge_requests_table:
@@ -39,16 +29,3 @@ jobs:
 
       - name: Send Request
         run: ruby script.rb
-# {
-#   "task": "Dedski-13",
-#   "merge_request": {
-#     "name": "Dedski-13 Base for airtable integration",
-#     "number": "5",
-#     "component": "users-api",
-#     "status": "Created",
-#     "creator": "aevula",
-#     "assignee": "aevula",
-#     "reviewer": "aevula",
-#     "url": "https://github.com/aevula/users-api/pull/4"
-#   }
-# }
