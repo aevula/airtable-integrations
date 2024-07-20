@@ -19,5 +19,6 @@ jobs:
   update_merge_request_table:
     name: Airtable-Integrations
     uses: aevula/airtable-integrations/.github/workflows/base.yml@Dedski-14
+    secrets: inherit
     with:
       component: Airtable-Integrations

@@ -5,10 +5,6 @@ on:
         required: true
         type: string
 
-env:
-  MERGE_REQUEST_URL: ${{ github.event.pull_request.url }}
-  AIRTABLE_CREATE_UPDATE_MR_WEBHOOK: ${{ github.secrets.AIRTABLE_CREATE_UPDATE_MR_WEBHOOK }}
-
 jobs:
   update_merge_requests_table:
     timeout-minutes: 1
@@ -22,10 +18,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3.4
-          bundler-cache: false
-
-      - name: Debug gems
-        run: bundle list
+          bundler-cache: true
 
       - name: Send Request
-        run: ruby script.rb
+        run: bundle exec ruby script.rb
+        env:
+          MERGE_REQUEST_URL: ${{ github.event.pull_request.url }}
+          AIRTABLE_CREATE_UPDATE_MR_WEBHOOK: ${{ secrets.AIRTABLE_CREATE_UPDATE_MR_WEBHOOK }}        
