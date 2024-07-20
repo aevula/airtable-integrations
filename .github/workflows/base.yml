@@ -1,0 +1,27 @@
+on:
+  workflow_call:
+    inputs:
+      component:
+        required: true
+        type: string
+
+jobs:
+  update_merge_requests_table:
+    timeout-minutes: 1
+    name: Create/Update MR in Airtable
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.4
+          bundler-cache: true
+
+      - name: Send Request
+        run: bundle exec ruby script.rb
+        env:
+          MERGE_REQUEST_URL: ${{ github.event.pull_request.url }}
+          AIRTABLE_CREATE_UPDATE_MR_WEBHOOK: ${{ secrets.AIRTABLE_CREATE_UPDATE_MR_WEBHOOK }}        

@@ -1,3 +1,3 @@
-# frozen_string_literal: true
+require_relative 'lib/airtable_integrations'
 
-require 'faraday'
+AirtableIntegrations.call
